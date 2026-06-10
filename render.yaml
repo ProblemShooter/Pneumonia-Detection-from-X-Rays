@@ -17,4 +17,4 @@ services:
       pip install --upgrade pip setuptools wheel
       pip install -r requirements.txt
 
-    startCommand: gunicorn --chdir "Flask Application" app:app
+    startCommand: gunicorn --workers 1 --threads 2 --chdir "Flask Application" app:app
