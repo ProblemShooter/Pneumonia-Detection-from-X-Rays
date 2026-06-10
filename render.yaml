@@ -7,7 +7,6 @@
 #     buildCommand: pip install -r requirements.txt
 #     startCommand: gunicorn -w 4 -b 0.0.0.0:$PORT "Flask Application.app:app"
 
-
 services:
   - type: web
     name: pneumonia-detection
@@ -15,11 +14,7 @@ services:
     plan: free
 
     buildCommand: |
-      pip install --upgrade pip
+      pip install --upgrade pip setuptools wheel
       pip install -r requirements.txt
 
-    startCommand: gunicorn app:app
-
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.13.3
+    startCommand: gunicorn --chdir "Flask Application" app:app
