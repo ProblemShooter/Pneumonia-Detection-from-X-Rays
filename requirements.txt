@@ -6,7 +6,7 @@ Flask==2.3.3
 Werkzeug==2.3.7
 
 # Deep Learning & Machine Learning
-tensorflow==2.13.0
+tensorflow==2.21.0
 numpy==1.24.3
 scipy==1.11.2
 
