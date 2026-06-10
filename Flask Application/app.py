@@ -1,26 +1,39 @@
 import os
+os.environ['CUDA_VISIBLE_DEVICES'] = ''
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 import numpy as np
 from PIL import Image
 import cv2
 from flask import Flask, request, render_template
 from werkzeug.utils import secure_filename
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Input, Flatten, Dense, Dropout
+from tensorflow.keras.layers import Flatten, Dense, Dropout
 from tensorflow.keras.applications.vgg19 import VGG19
 
 
-base_model = VGG19(include_top=False, input_shape=(128,128,3))
-x = base_model.output
-flat=Flatten()(x)
-class_1 = Dense(4608, activation='relu')(flat)
-drop_out = Dropout(0.2)(class_1)
-class_2 = Dense(1152, activation='relu')(drop_out)
-output = Dense(2, activation='softmax')(class_2)
-model_03 = Model(base_model.inputs, output)
-model_03.load_weights('vgg_unfrozen.h5')
-app = Flask(__name__)
+def build_model():
+    base_model = VGG19(include_top=False, input_shape=(224, 224, 3))
+    x = base_model.output
+    flat = Flatten()(x)
+    class_1 = Dense(4608, activation='relu')(flat)
+    drop_out = Dropout(0.2)(class_1)
+    class_2 = Dense(1152, activation='relu')(drop_out)
+    output = Dense(2, activation='softmax')(class_2)
+    model = Model(base_model.inputs, output)
+    weights_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'model_weights', 'vgg19_model_02.h5'))
+    model.load_weights(weights_path)
+    return model
 
-print('Model loaded. Check http://127.0.0.1:5000/')
+
+try:
+    model_03 = build_model()
+    print('Model loaded. Check http://127.0.0.1:5000/')
+except Exception as e:
+    model_03 = None
+    print('Error loading model:', e)
+
+app = Flask(__name__)
 
 
 def get_className(classNo):
@@ -31,14 +44,20 @@ def get_className(classNo):
 
 
 def getResult(img):
-    image=cv2.imread(img)
-    image = Image.fromarray(image, 'RGB')
-    image = image.resize((128, 128))
-    image=np.array(image)
+    if model_03 is None:
+        raise RuntimeError('Model not loaded')
+
+    image = cv2.imread(img)
+    if image is None:
+        raise FileNotFoundError(f'Unable to read image: {img}')
+
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    image = Image.fromarray(image)
+    image = image.resize((224, 224))
+    image = np.array(image).astype('float32') / 255.0
     input_img = np.expand_dims(image, axis=0)
-    result=model_03.predict(input_img)
-    result01=np.argmax(result,axis=1)
-    return result01
+    result = model_03.predict(input_img, verbose=0)
+    return int(np.argmax(result, axis=1)[0])
 
 
 @app.route('/', methods=['GET'])
@@ -62,4 +81,4 @@ def upload():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False, threaded=False, use_reloader=False)

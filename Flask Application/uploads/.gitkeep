@@ -1,0 +1,2 @@
+# This file ensures the uploads directory exists in git
+# User-uploaded X-ray images will be stored here (not tracked by git)
