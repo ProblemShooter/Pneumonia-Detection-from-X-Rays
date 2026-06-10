@@ -1,0 +1,59 @@
+# ============================================
+# CORE DEPENDENCIES
+# ============================================
+# Web Framework
+Flask==2.3.3
+Werkzeug==2.3.7
+
+# Deep Learning & Machine Learning
+tensorflow==2.13.0
+numpy==1.24.3
+scipy==1.11.2
+
+# Image Processing
+Pillow==10.0.0
+opencv-python==4.8.0.74
+scikit-image==0.21.0
+
+# Data Handling & Visualization
+pandas==2.0.3
+matplotlib==3.7.2
+seaborn==0.12.2
+
+# ============================================
+# DEPLOYMENT DEPENDENCIES
+# ============================================
+# Production WSGI Server
+gunicorn==21.2.0
+
+# ============================================
+# DEVELOPMENT DEPENDENCIES (Optional)
+# ============================================
+# Jupyter for notebook support
+jupyter==1.0.0
+notebook==7.0.2
+ipython==8.14.0
+
+# Testing
+pytest==7.4.0
+pytest-cov==4.1.0
+
+# Code Quality
+black==23.7.0
+flake8==6.0.0
+pylint==2.17.5
+
+# ============================================
+# OPTIONAL UTILITIES
+# ============================================
+# Environment variable management
+python-dotenv==1.0.0
+
+# Rate limiting (for production)
+Flask-Limiter==3.3.1
+
+# CORS support
+flask-cors==4.0.0
+
+# Enhanced logging
+python-json-logger==2.0.7

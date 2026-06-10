@@ -1,0 +1,156 @@
+# ============================================
+# VIRTUAL ENVIRONMENTS
+# ============================================
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# ============================================
+# PYTHON FILES & CACHE
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.pyc
+*.pyo
+
+# ============================================
+# LARGE MODEL WEIGHTS (EXCLUDE)
+# ============================================
+# Model files are too large for GitHub
+# Store them separately or use Git LFS
+model_weights/*.h5
+model_weights/*.pkl
+model_weights/*.pth
+!model_weights/.gitkeep
+
+# ============================================
+# UPLOADED USER FILES (EXCLUDE)
+# ============================================
+Flask\ Application/uploads/*
+Flask\ Application/uploads/**
+!Flask\ Application/uploads/.gitkeep
+
+# ============================================
+# RAW DATASET (EXCLUDE)
+# ============================================
+# Dataset files are too large for GitHub
+# Download separately from source
+chest_xray/
+dataset/
+data/
+raw_data/
+
+# ============================================
+# JUPYTER NOTEBOOK
+# ============================================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+.jupyter/
+
+# ============================================
+# TEMPORARY & LOG FILES
+# ============================================
+tempCodeRunnerFile.py
+*.tmp
+*.temp
+temp_*.py
+*.log
+logs/
+log/
+
+# ============================================
+# ENVIRONMENT VARIABLES & SECRETS
+# ============================================
+.env
+.env.local
+.env.*.local
+secrets.json
+config.secrets.py
+
+# ============================================
+# IDE & EDITOR FILES
+# ============================================
+.vscode/
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.idea/**
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# ============================================
+# OS SPECIFIC FILES
+# ============================================
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# ============================================
+# DISTRIBUTION & PACKAGING
+# ============================================
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ============================================
+# TESTING & COVERAGE
+# ============================================
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+
+# ============================================
+# DATABASE FILES
+# ============================================
+*.db
+*.sqlite
+*.sqlite3
+
+# ============================================
+# PROJECT SPECIFIC
+# ============================================
+# Cache and compiled files
+.cache/
+*.cache
+*.pkl
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Flask
+instance/
+.webassets-cache
+
+# Keep directories but exclude large files
+model_weights/
+!model_weights/.gitkeep
